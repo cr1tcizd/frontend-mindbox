@@ -1,0 +1,53 @@
+.todo {
+	position: relative;
+	display: flex;
+	align-self: flex-start;
+	align-items: center;
+	height: 50px;
+	padding: 0 10px 0 40px;
+	border-bottom: 1px solid #d3d1d1;
+	width: 100%;
+}
+
+.text {
+	font-size: 16px;
+}
+
+.textCompleted {
+	text-decoration: line-through;
+	color: #d3d1d1;
+}
+
+.checkMark {
+	position: absolute;
+	left: 5px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: 1px solid #d3d1d1;
+	border-radius: 50%;
+	width: 25px;
+	height: 25px;
+	cursor: pointer;
+
+	.check {
+		transition: opacity 0.1s ease-in-out;
+		opacity: 0;
+		visibility: hidden;
+	}
+}
+
+.checkMark:hover {
+	.check {
+		visibility: visible;
+		opacity: 1;
+		fill: #d3d1d1;
+	}
+}
+
+.checkMarkActive {
+	.check {
+		visibility: visible;
+		opacity: 1;
+	}
+}

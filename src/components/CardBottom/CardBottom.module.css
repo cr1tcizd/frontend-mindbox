@@ -1,0 +1,27 @@
+.bottom {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0 10px;
+	height: 35px;
+	width: 100%;
+	border-bottom: 1px solid #cbcbcb;
+}
+
+.btn {
+	border: none;
+	background: none;
+	color: #777777;
+}
+
+.bottomLeft {
+	color: #777777;
+}
+
+.bottomCenter {
+	display: flex;
+	gap: 12px;
+}
+
+.bottomRight {
+}
