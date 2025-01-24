@@ -5,7 +5,7 @@ import Todo from '../todo/Todo'
 import { ITodosContext, TodosContext } from '../../app/context/TodosContext'
 
 import ArrowBottomSvg from './../../assets/arrowBottom.svg?react'
-import CardBottom from '../CardBottom/CardBottom'
+import CardBottom, { activeButton } from '../CardBottom/CardBottom'
 
 export interface ITodo {
 	id: string
@@ -15,7 +15,9 @@ export interface ITodo {
 
 export default function Card() {
 	const [text, setText] = useState<string>('')
-	const { addTodo, todos } = useContext(TodosContext) as ITodosContext
+	const { addTodo, todos, activeFilter } = useContext(
+		TodosContext
+	) as ITodosContext
 
 	const handleEnterPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
 		if (e.key === 'Enter' && text !== '') {
@@ -24,6 +26,13 @@ export default function Card() {
 			setText('')
 		}
 	}
+
+	const filteredTodos =
+		activeFilter === activeButton.ACTIVE
+			? todos.filter(item => item.completed === false)
+			: activeFilter === activeButton.COMPLETED
+			? todos.filter(item => item.completed === true)
+			: todos
 
 	return (
 		<div className={cls.card}>
@@ -38,7 +47,7 @@ export default function Card() {
 					placeholder='What needs to be done?'
 				/>
 			</div>
-			{todos.map(todo => (
+			{filteredTodos.map(todo => (
 				<Todo key={todo.id} todo={todo} />
 			))}
 			<CardBottom />

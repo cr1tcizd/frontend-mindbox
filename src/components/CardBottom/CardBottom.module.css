@@ -12,16 +12,16 @@
 	border: none;
 	background: none;
 	color: #777777;
+	font-size: 12px;
+	cursor: pointer;
 }
 
 .bottomLeft {
 	color: #777777;
+	font-size: 12px;
 }
 
 .bottomCenter {
 	display: flex;
 	gap: 12px;
-}
-
-.bottomRight {
 }

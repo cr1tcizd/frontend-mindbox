@@ -1,11 +1,14 @@
 import { createContext, ReactNode, useState } from 'react'
 import { ITodo } from '../../components/card/Card'
+import { activeButton } from '../../components/CardBottom/CardBottom'
 
 export interface ITodosContext {
 	todos: ITodo[]
 	addTodo: (todo: ITodo) => void
 	check: (todo: ITodo) => void
-	getRemain: () => number
+	handleFilter: (btn: activeButton) => void
+	activeFilter: activeButton
+	setTodos: (todos: ITodo[]) => void
 }
 
 export const TodosContext = createContext<ITodosContext | null>(null)
@@ -13,6 +16,9 @@ export const TodosContext = createContext<ITodosContext | null>(null)
 export const TodosProvider = ({ children }: { children: ReactNode }) => {
 	const localCats = JSON.parse(localStorage.getItem('todos') || '[]')
 	const [todos, setTodos] = useState<ITodo[]>(localCats)
+	const [activeFilter, setActiveFilter] = useState<activeButton>(
+		activeButton.ALL
+	)
 
 	const addTodo = (todo: ITodo) => {
 		setTodos([...todos, todo])
@@ -36,14 +42,21 @@ export const TodosProvider = ({ children }: { children: ReactNode }) => {
 		)
 	}
 
-	const getRemain = () => {
-		return todos.filter(item => !item.completed).length
+	const handleFilter = (btn: activeButton) => {
+		setActiveFilter(btn)
 	}
 
-	const activeTodos = () => {}
-
 	return (
-		<TodosContext.Provider value={{ todos, addTodo, check, getRemain }}>
+		<TodosContext.Provider
+			value={{
+				todos,
+				addTodo,
+				check,
+				handleFilter,
+				activeFilter,
+				setTodos,
+			}}
+		>
 			{children}
 		</TodosContext.Provider>
 	)
