@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import cls from './CardBottom.module.css'
 import { ITodosContext, TodosContext } from '../../app/context/TodosContext'
 
@@ -13,6 +13,8 @@ export default function CardBottom() {
 		TodosContext
 	) as ITodosContext
 
+	const [activeBtn, setActiveBtn] = useState<activeButton>(activeButton.ALL)
+
 	const handleClearCompleted = () => {
 		setTodos(todos.filter(todo => todo.completed === false))
 	}
@@ -24,20 +26,41 @@ export default function CardBottom() {
 			<p className={cls.bottomLeft}>{remainTodo} items left</p>
 			<div className={cls.bottomCenter}>
 				<button
-					className={cls.btn}
-					onClick={() => handleFilter(activeButton.ALL)}
+					className={
+						activeBtn === activeButton.ALL
+							? `${cls.btn} ${cls.btnActive}`
+							: cls.btn
+					}
+					onClick={() => {
+						handleFilter(activeButton.ALL)
+						setActiveBtn(activeButton.ALL)
+					}}
 				>
 					All
 				</button>
 				<button
-					className={cls.btn}
-					onClick={() => handleFilter(activeButton.ACTIVE)}
+					className={
+						activeBtn === activeButton.ACTIVE
+							? `${cls.btn} ${cls.btnActive}`
+							: cls.btn
+					}
+					onClick={() => {
+						handleFilter(activeButton.ACTIVE)
+						setActiveBtn(activeButton.ACTIVE)
+					}}
 				>
 					Active
 				</button>
 				<button
-					className={cls.btn}
-					onClick={() => handleFilter(activeButton.COMPLETED)}
+					className={
+						activeBtn === activeButton.COMPLETED
+							? `${cls.btn} ${cls.btnActive}`
+							: cls.btn
+					}
+					onClick={() => {
+						handleFilter(activeButton.COMPLETED)
+						setActiveBtn(activeButton.COMPLETED)
+					}}
 				>
 					Completed
 				</button>
